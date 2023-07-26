@@ -23,11 +23,26 @@ public partial class MainWindow : Window
 {
     private string clientName;
     private const int serverPort = 11000;
+    private const int loggerPort = 11001;
     private Client client;
     public MainWindow()
     {
         InitializeComponent();
-        client = new(IPAddress.Parse("127.0.0.1"), serverPort);
+        client = new("127.0.0.1", serverPort, loggerPort);
+        SynchronizationContext? mainContext = SynchronizationContext.Current;
+        Task chatLoggingTask = new(() =>
+        {
+            while (client.Connected)
+            {
+                Thread.Sleep(1500);
+                string chatLog = client.GetChatLog();
+                mainContext?.Post(
+                    new SendOrPostCallback((_) => ChatTextBlock.Text = chatLog),
+                    null
+                );
+            }
+        }, TaskCreationOptions.LongRunning);
+        chatLoggingTask.Start();
     }
     ~MainWindow()
     {

@@ -7,7 +7,7 @@ public class Program
 {
     public static void Main()
     {
-        Server server = new Server();
+        Server server = new Server("127.0.0.1", 11000, 11001);
         server.Start();
     }
 }

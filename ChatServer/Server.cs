@@ -10,49 +10,69 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
 using System.Text.Unicode;
+using System.Net.WebSockets;
 
 namespace ChatServer;
 public class Server
 {
-    private readonly IPHostEntry ipHost;
     private readonly IPAddress ip;
     private readonly IPEndPoint endPoint;
-    public Server()
+    private readonly Logger logger;
+    public Server(string hostNameOrAddress, int serverPort, int loggerPort)
     {
-        ipHost = Dns.GetHostEntry("127.0.0.1");
-        ip = ipHost.AddressList[0];
-        endPoint = new(ip, 11000);
+        ip = Dns.GetHostAddresses(hostNameOrAddress)[0];
+        endPoint = new(ip, serverPort);
+        logger = new(loggerPort, hostNameOrAddress);
     }
     public void Start()
     {
-        using Socket serverSocket = new(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        Task loggerExecution = new(
+            () => logger.Start(),
+            TaskCreationOptions.LongRunning
+        );
+        loggerExecution.Start();
+        using Socket serverSocket
+            = new(ip.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
         serverSocket.Bind(endPoint);
-        serverSocket.Listen(2);
+        serverSocket.Listen();
         while (true)
         {
-            Console.WriteLine("...Waiting for socket connection...");
-            Socket client = serverSocket.Accept();
-            Task task = new(() =>
+            try
             {
-                try
+                Console.WriteLine("...Waiting for socket connection...");
+                Socket clientSocket = serverSocket.Accept();
+                Task clientHandler = new(() =>
                 {
-                    Console.WriteLine("Client socket accepted");
-                    byte[] message = new byte[256];
-                    do
+                    try
                     {
-                        int bytesReceived = client.Receive(message);
-                        Console.WriteLine("Bytes received");
-                        //chatLog += Encoding.UTF8.GetString(message);
-                        message = Array.Empty<byte>();
-                    } while (client.Connected);
-                    client.Dispose();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex); 
-                }
-            });
-            task.Start();
+                        Console.WriteLine("Client socket accepted");
+                        do
+                        {
+                            byte[] message = new byte[256];
+                            int bytesReceived = clientSocket.Receive(
+                                message, SocketFlags.Partial
+                            );
+                            Console.WriteLine("Bytes received");
+                            logger.Log += Encoding.UTF8.GetString(
+                                message, 0, bytesReceived
+                            );
+                        } while (clientSocket.Connected);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                    }
+                    finally
+                    {
+                        clientSocket.Dispose();
+                    }
+                }, TaskCreationOptions.LongRunning);
+                clientHandler.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

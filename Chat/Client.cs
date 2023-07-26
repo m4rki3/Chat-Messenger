@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ChatServer;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -9,27 +11,36 @@ using System.Threading.Tasks;
 namespace Chat;
 public class Client : IDisposable
 {
-    private readonly Socket socket;
-    private readonly IPEndPoint ip;
-    private readonly int port;
-    private EndPoint serverEndPoint;
-    public Client(IPAddress serverIP, int serverPort)
+    private readonly Socket serverSocket;
+    private readonly Socket loggerSocket;
+    public bool Connected =>
+        serverSocket.Connected && loggerSocket.Connected;
+    public Client(string hostNameOrAddress, int serverPort, int loggerPort)
     {
-        serverEndPoint = new IPEndPoint(serverIP, serverPort);
-        port = serverPort;
-        string hostName = Dns.GetHostName();
-        IPHostEntry ipHost = Dns.GetHostEntry(hostName);
-        IPAddress ipAddress = ipHost.AddressList[0];
-        ip = new(ipAddress, port);
-        socket = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-        socket.Connect(ip);
+        IPAddress ipAddress = Dns.GetHostAddresses(hostNameOrAddress)[0];
+        IPEndPoint serverEndPoint = new(ipAddress, serverPort);
+        IPEndPoint loggerEndPoint = new(ipAddress, loggerPort);
+        serverSocket = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        loggerSocket = new(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+        serverSocket.Connect(serverEndPoint);
+        loggerSocket.Connect(loggerEndPoint);
     }
     public void Dispose()
     {
-        socket.Close();
+        serverSocket.Dispose();
+        loggerSocket.Dispose();
     }
     public void SendMessage(string name, string message)
     {
-        socket.Send(Encoding.UTF8.GetBytes($"{name}: {message}\n"));
+        serverSocket.Send(
+            Encoding.UTF8.GetBytes($"{name}: {message}\n"),
+            SocketFlags.Partial
+        );
+    }
+    public string GetChatLog()
+    {
+        byte[] buffer = new byte[256];
+        int bytesReceived = loggerSocket.Receive(buffer, SocketFlags.Partial);
+        return Encoding.UTF8.GetString(buffer, index: 0, bytesReceived);
     }
 }
