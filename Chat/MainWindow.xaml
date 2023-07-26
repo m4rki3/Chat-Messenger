@@ -11,12 +11,12 @@
 
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="418" VerticalAlignment="Top" Width="582" Margin="219,51,0,0"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" VerticalAlignment="Top" Width="582"/>
-        <Button x:Name="MessageButton" Content="Enter the message" HorizontalAlignment="Left" Height="51" Margin="515,531,0,0" VerticalAlignment="Top" Width="211" Click="MessageButtonClick" FontFamily="Arial" FontSize="14" IsEnabled="False"/>
-        <TextBox x:Name="MessageTextBox" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="582" FontFamily="Arial" FontSize="14" IsEnabled="False"/>
-        <TextBox x:Name="SetNameTextBox" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontFamily="Arial" FontSize="14"/>
-        <Button x:Name="SetNameButton" Content="Accept" HorizontalAlignment="Left" Height="65" Margin="26,213,0,0" VerticalAlignment="Top" Width="170" FontFamily="Arial" FontSize="14" Click="SetNameButtonClick" HorizontalContentAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Left" Height="21" Margin="26,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontFamily="Arial" FontSize="14" TextAlignment="Center"><Run Text="Enter Your name"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="ChatTextBlock" HorizontalAlignment="Left" Height="362" Margin="249,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="522" FontFamily="Arial" FontSize="14" Text=""/>
+        <Button x:Name="MessageButton" Content="Enter the message" HorizontalAlignment="Left" Height="51" Margin="515,531,0,0" VerticalAlignment="Top" Width="211" Click="MessageButtonClick" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+        <TextBox x:Name="MessageTextBox" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="582" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+        <TextBox x:Name="SetNameTextBox" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+        <Button x:Name="SetNameButton" Content="Accept" HorizontalAlignment="Left" Height="65" Margin="26,213,0,0" VerticalAlignment="Top" Width="170" FontSize="16" Click="SetNameButtonClick" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="26,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" TextAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold"><Run Text="Enter Your name"/><LineBreak/><Run/></TextBlock>
+        <TextBlock x:Name="ChatTextBlock" HorizontalAlignment="Left" Height="362" Margin="249,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="522" FontSize="16" Text="" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
 
     </Grid>
 </Window>

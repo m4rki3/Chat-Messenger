@@ -60,8 +60,12 @@ public partial class MainWindow : Window
             SetNameButton.IsEnabled = false;
         }
     }
-    private void MessageButtonClick(object sender, RoutedEventArgs e)
+    private async void MessageButtonClick(object sender, RoutedEventArgs e)
     {
         client.SendMessage(clientName, MessageTextBox.Text);
+        MessageTextBox.Text = string.Empty;
+        MessageButton.IsEnabled = false;
+        await Task.Run(() => Thread.Sleep(2000));
+        MessageButton.IsEnabled = true;
     }
 }
