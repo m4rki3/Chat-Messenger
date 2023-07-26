@@ -9,13 +9,11 @@ using System.Threading.Tasks;
 namespace ChatServer;
 public class Logger
 {
-    private readonly int port;
     private readonly IPAddress ipAddress;
     private readonly IPEndPoint endPoint;
     public string Log { get; internal set; }
     public Logger(int port, string hostNameOrAddress)
     {
-        this.port = port;
         ipAddress = Dns.GetHostAddresses(hostNameOrAddress)[0];
         endPoint = new(ipAddress, port);
         Log = string.Empty;

@@ -54,7 +54,7 @@ public class Server
                             );
                             Console.WriteLine("Bytes received");
                             logger.Log += Encoding.UTF8.GetString(
-                                message, 0, bytesReceived
+                                message, index: 0, bytesReceived
                             );
                         } while (clientSocket.Connected);
                     }

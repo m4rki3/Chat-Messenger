@@ -37,7 +37,7 @@ public partial class MainWindow : Window
                 Thread.Sleep(1500);
                 string chatLog = client.GetChatLog();
                 mainContext?.Post(
-                    new SendOrPostCallback((_) => ChatTextBlock.Text = chatLog),
+                    new SendOrPostCallback((_) => ChatTextBox.Text = chatLog),
                     null
                 );
             }
@@ -50,22 +50,32 @@ public partial class MainWindow : Window
     }
     private void SetNameButtonClick(object sender, RoutedEventArgs e)
     {
-        if (!string.IsNullOrEmpty(SetNameTextBox.Text)
-         && !string.IsNullOrWhiteSpace(SetNameTextBox.Text))
-        {
-            clientName = SetNameTextBox.Text;
-            MessageButton.IsEnabled = true;
-            MessageTextBox.IsEnabled = true;
-            SetNameTextBox.IsEnabled = false;
-            SetNameButton.IsEnabled = false;
-        }
+        clientName = SetNameTextBox.Text;
+        MessageButton.IsEnabled = true;
+        MessageTextBox.IsEnabled = true;
+        SetNameTextBox.IsEnabled = false;
+        SetNameButton.IsEnabled = false;
     }
-    private async void MessageButtonClick(object sender, RoutedEventArgs e)
+    private void MessageButtonClick(object sender, RoutedEventArgs e)
     {
         client.SendMessage(clientName, MessageTextBox.Text);
         MessageTextBox.Text = string.Empty;
         MessageButton.IsEnabled = false;
-        await Task.Run(() => Thread.Sleep(2000));
-        MessageButton.IsEnabled = true;
+    }
+
+    private void MessageTextBoxTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(MessageTextBox.Text))
+            MessageButton.IsEnabled = false;
+        else
+            MessageButton.IsEnabled = true;
+    }
+
+    private void SetNameTextBoxTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(SetNameTextBox.Text))
+            SetNameButton.IsEnabled = false;
+        else
+            SetNameButton.IsEnabled = true;
     }
 }

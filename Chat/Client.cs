@@ -39,7 +39,7 @@ public class Client : IDisposable
     }
     public string GetChatLog()
     {
-        byte[] buffer = new byte[256];
+        byte[] buffer = new byte[20000];
         int bytesReceived = loggerSocket.Receive(buffer, SocketFlags.Partial);
         return Encoding.UTF8.GetString(buffer, index: 0, bytesReceived);
     }

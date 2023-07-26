@@ -7,16 +7,17 @@
         mc:Ignorable="d"
         Title="Chat" Height="650" Width="850">
     <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" VerticalAlignment="Top" Width="170"/>
-
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="418" VerticalAlignment="Top" Width="582" Margin="219,51,0,0"/>
+        <TextBox x:Name="MessageTextBox" HorizontalAlignment="Left" Height="62" Margin="244,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="534" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold" BorderBrush="Black" MaxLines="10" VerticalScrollBarVisibility="Visible" IsUndoEnabled="False" SelectionBrush="Black" TextChanged="MessageTextBoxTextChanged" MaxLength="300"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" VerticalAlignment="Top" Width="582"/>
-        <Button x:Name="MessageButton" Content="Enter the message" HorizontalAlignment="Left" Height="51" Margin="515,531,0,0" VerticalAlignment="Top" Width="211" Click="MessageButtonClick" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
-        <TextBox x:Name="MessageTextBox" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="582" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
-        <TextBox x:Name="SetNameTextBox" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
-        <Button x:Name="SetNameButton" Content="Accept" HorizontalAlignment="Left" Height="65" Margin="26,213,0,0" VerticalAlignment="Top" Width="170" FontSize="16" Click="SetNameButtonClick" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" VerticalAlignment="Top" Width="170"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="418" VerticalAlignment="Top" Width="582" Margin="219,51,0,0">
+            <TextBox x:Name="ChatTextBox" HorizontalAlignment="Center" Height="374" TextWrapping="Wrap" VerticalAlignment="Center" Width="536" FontFamily="Segoe UI Semibold" FontSize="16" VerticalScrollBarVisibility="Visible" BorderThickness="1,1,1,1" BorderBrush="Black" MaxLines="10000" IsUndoEnabled="False" IsReadOnly="True" Cursor="Arrow" SelectionBrush="Black" IsHitTestVisible="False" MaxLength="100000"/>
+        </Border>
+        <Button x:Name="MessageButton" Content="Enter the message" HorizontalAlignment="Left" Height="51" Margin="515,531,0,0" VerticalAlignment="Top" Width="211" Click="MessageButtonClick" FontSize="16" IsEnabled="False" FontFamily="Segoe UI Semibold" FontWeight="Bold" Cursor="Hand"/>
+        <TextBox x:Name="SetNameTextBox" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" FontFamily="Segoe UI Semibold" FontWeight="Bold" MaxLines="2" TextChanged="SetNameTextBoxTextChanged" MaxLength="20"/>
+        <Button x:Name="SetNameButton" Content="Accept" HorizontalAlignment="Left" Height="65" Margin="26,213,0,0" VerticalAlignment="Top" Width="170" FontSize="16" Click="SetNameButtonClick" HorizontalContentAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold" Cursor="Hand" IsEnabled="False"/>
         <TextBlock HorizontalAlignment="Left" Height="21" Margin="26,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" TextAlignment="Center" FontFamily="Segoe UI Semibold" FontWeight="Bold"><Run Text="Enter Your name"/><LineBreak/><Run/></TextBlock>
-        <TextBlock x:Name="ChatTextBlock" HorizontalAlignment="Left" Height="362" Margin="249,79,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="522" FontSize="16" Text="" FontFamily="Segoe UI Semibold" FontWeight="Bold"/>
 
     </Grid>
 </Window>
