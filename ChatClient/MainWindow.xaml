@@ -1,0 +1,23 @@
+﻿<Window x:Class="ChatClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatClient"
+        mc:Ignorable="d"
+        Title="Chat" Height="650" Width="850">
+    <Grid>
+        <TextBox x:Name="MessageTextBox" HorizontalAlignment="Left" Height="62" Margin="244,469,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="534" FontSize="16" IsEnabled="False" BorderBrush="Black" MaxLines="10" VerticalScrollBarVisibility="Visible" IsUndoEnabled="False" SelectionBrush="Black" TextChanged="MessageTextBoxTextChanged" MaxLength="300" FontFamily="Yu Gothic UI"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="62" Margin="219,469,0,0" VerticalAlignment="Top" Width="582"/>
+
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" VerticalAlignment="Top" Width="170"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="418" VerticalAlignment="Top" Width="582" Margin="219,51,0,0">
+            <TextBox x:Name="ChatTextBox" HorizontalAlignment="Center" Height="374" TextWrapping="Wrap" VerticalAlignment="Center" Width="536" FontSize="16" VerticalScrollBarVisibility="Visible" BorderThickness="1,1,1,1" BorderBrush="Black" MaxLines="10000" IsUndoEnabled="False" IsReadOnly="True" Cursor="Arrow" SelectionBrush="Black" IsHitTestVisible="False" MaxLength="100000" FontFamily="Yu Gothic UI"/>
+        </Border>
+        <Button x:Name="MessageButton" Content="Enter the message" HorizontalAlignment="Left" Height="51" Margin="515,531,0,0" VerticalAlignment="Top" Width="211" Click="MessageButtonClick" FontSize="16" IsEnabled="False" FontWeight="Bold" Cursor="Hand" FontFamily="Yu Gothic UI"/>
+        <TextBox x:Name="SetNameTextBox" HorizontalAlignment="Left" Height="69" Margin="26,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" MaxLines="2" TextChanged="SetNameTextBoxTextChanged" MaxLength="20" FontFamily="Yu Gothic UI"/>
+        <Button x:Name="SetNameButton" Content="Accept" HorizontalAlignment="Left" Height="65" Margin="26,213,0,0" VerticalAlignment="Top" Width="170" FontSize="16" Click="SetNameButtonClick" HorizontalContentAlignment="Center" FontWeight="Bold" Cursor="Hand" IsEnabled="False" FontFamily="Yu Gothic UI"/>
+        <TextBlock HorizontalAlignment="Left" Height="21" Margin="26,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" FontSize="16" TextAlignment="Center" FontWeight="Bold" FontFamily="Yu Gothic UI"><Run Text="Enter Your name"/><LineBreak/><Run/></TextBlock>
+
+    </Grid>
+</Window>

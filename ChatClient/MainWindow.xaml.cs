@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Chat;
+namespace ChatClient;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
@@ -24,18 +24,19 @@ public partial class MainWindow : Window
     private string clientName;
     private const int serverPort = 11000;
     private const int loggerPort = 11001;
-    private Client client;
+    private IClient client;
     public MainWindow()
     {
         InitializeComponent();
-        client = new("127.0.0.1", serverPort, loggerPort);
+        client = new Client("127.0.0.1", serverPort, loggerPort);
+        clientName = string.Empty;
         SynchronizationContext? mainContext = SynchronizationContext.Current;
         Task chatLoggingTask = new(() =>
         {
             while (client.Connected)
             {
                 Thread.Sleep(1500);
-                string chatLog = client.GetChatLog();
+                string chatLog = client.ReceiveChatLog();
                 mainContext?.Post(
                     new SendOrPostCallback((_) => ChatTextBox.Text = chatLog),
                     null
@@ -58,7 +59,7 @@ public partial class MainWindow : Window
     }
     private void MessageButtonClick(object sender, RoutedEventArgs e)
     {
-        client.SendMessage(clientName, MessageTextBox.Text);
+        client.SendMessageToServer(clientName, MessageTextBox.Text);
         MessageTextBox.Text = string.Empty;
         MessageButton.IsEnabled = false;
     }

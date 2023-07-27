@@ -8,8 +8,8 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chat;
-public class Client : IDisposable
+namespace ChatClient;
+public class Client : IClient
 {
     private readonly Socket serverSocket;
     private readonly Socket loggerSocket;
@@ -30,14 +30,14 @@ public class Client : IDisposable
         serverSocket.Dispose();
         loggerSocket.Dispose();
     }
-    public void SendMessage(string name, string message)
+    public void SendMessageToServer(string name, string message)
     {
         serverSocket.Send(
             Encoding.UTF8.GetBytes($"{name}: {message}\n"),
             SocketFlags.Partial
         );
     }
-    public string GetChatLog()
+    public string ReceiveChatLog()
     {
         byte[] buffer = new byte[20000];
         int bytesReceived = loggerSocket.Receive(buffer, SocketFlags.Partial);
